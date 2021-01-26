@@ -23,8 +23,7 @@ struct Constants {
         // Part 3
         static let sortedByPopularity = "&sortBy=popularity"
         static let sortedByRecent = "&sortBy=publishedAt"
-        // Part 4
-        static let apiKey = "#"
+    
     }
     
     

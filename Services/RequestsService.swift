@@ -23,7 +23,7 @@ class RequestsService {
             request.append(Constants.NewsApi.showjumpingQuery)
         }
         request.append(Constants.NewsApi.sortedByRecent)
-        request.append(Constants.NewsApi.apiKey)
+        request.append(NAPI.apiKey)
         return request
     }
 }

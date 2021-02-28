@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct Constants {
+enum Constants {
     
-    struct NewsApi {
+    enum NewsApi {
         static let mostRecentArticles = "mostRecent"
         static let mostPopularArticles = "mostPopular"
         
@@ -26,8 +26,7 @@ struct Constants {
     
     }
     
-    
-    struct Storyboard {
+    enum Storyboard {
         
         static let goToProfileSegue = "goToCreateProfile"
         static let createProfileVC = "createProfileVC"
@@ -37,12 +36,12 @@ struct Constants {
         static let detailViewSegue = "goToDetail"
     }
     
-    struct Topics {
+    enum Topics {
         static let dressage = "dressage"
         static let showjumping = "showjumping"
     }
     
-    struct LocalStorage {
+    enum LocalStorage {
         
         static let userIdKey = "storedUserId"
         static let usernameKey = "storedUsername"

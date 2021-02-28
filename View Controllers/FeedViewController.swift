@@ -27,11 +27,8 @@ class FeedViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         let indexPath = tableView.indexPathForSelectedRow
-        guard indexPath != nil else {
-            return
-        }
-        
-        let article = articles[indexPath!.row]
+        guard let validIndexPath = indexPath else { return }
+        let article = articles[validIndexPath.row]
         let detailVC = segue.destination as! DetailViewController
         
         guard article.url != nil else {
@@ -44,6 +41,7 @@ class FeedViewController: UIViewController {
 }
 
 extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return articles.count
     }
@@ -71,14 +69,20 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
             }, completion: nil)
         }
     }
+    
 }
 
 // MARK:  - News Model Protocol Methods
 
 extension FeedViewController: NewsModelProtocol {
+    
     func articlesFetched(_ articles: [Article]) {
+        
         self.articles = articles
-        tableView.reloadData()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
+    
 }
 

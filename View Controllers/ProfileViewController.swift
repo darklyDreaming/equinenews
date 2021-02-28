@@ -16,32 +16,41 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var username: UILabel!
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
+        configureView()
+        
+    }
+    
+    private func configureView() {
+        
         let user = LocalStorageService.loadUser()
-        if let user = user {
-            if user.username != nil && user.topicToRead != nil && Auth.auth().currentUser?.displayName != nil {
-                let userDisplayName = Auth.auth().currentUser?.displayName
-                nameLabel.text = "Name: \(userDisplayName!)"
-                username.text = "Username: \(user.username!)"
-                favTopicLabel.text = "Favourite topic: \(user.topicToRead!)"
-            }
-        }
+        
+        guard let validUser = user else { return }
+        guard let usernameString = validUser.username, let topicToRead = validUser.topicToRead, let displayName = Auth.auth().currentUser?.displayName else { return }
+        
+        nameLabel.text = "Name: \(displayName)"
+        username.text = "Username: \(usernameString)"
+        favTopicLabel.text = "Favourite topic: \(topicToRead)"
+
         nameLabel = Styles.styleStandardLabel(label: nameLabel)
         username = Styles.styleStandardLabel(label: username)
         favTopicLabel = Styles.styleStandardLabel(label: favTopicLabel)
         signOutButton = Styles.styleButton(button: signOutButton)
+        
     }
     
     @IBAction func signOutTapped(_ sender: Any) {
+        
         do {
             try Auth.auth().signOut()
             LocalStorageService.clearUser()
             let loginNavVC = self.storyboard?.instantiateViewController(identifier: Constants.Storyboard.loginNavVC)
             self.view.window?.rootViewController = loginNavVC
             self.view.window?.makeKeyAndVisible()
-            
         } catch {
             print("Error while signing out")
         }
     }
+    
 }

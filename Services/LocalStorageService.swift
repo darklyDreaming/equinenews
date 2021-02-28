@@ -8,7 +8,8 @@
 import Foundation
 import UIKit
 
-class LocalStorageService {
+final class LocalStorageService {
+    
     static func saveUser(userId: String?, username: String?, topicToRead: String?) {
         
         let defaults = UserDefaults.standard

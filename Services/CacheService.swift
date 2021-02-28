@@ -8,8 +8,10 @@
 import Foundation
 import UIKit
 
-class CacheService {
+final class CacheService {
+    
     static var imageDictionary = [String : Data]()
+    
     static func saveData(_ url: String, _ imageData: Data) {
         imageDictionary[url] = imageData
     }
@@ -17,4 +19,5 @@ class CacheService {
     static func retrieveData(url: String) -> Data? {
         return imageDictionary[url]
     }
+    
 }

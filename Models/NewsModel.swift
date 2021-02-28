@@ -8,12 +8,13 @@
 import Foundation
 import Firebase
 
-protocol NewsModelProtocol {
+protocol NewsModelProtocol: class {
     func articlesFetched(_ articles: [Article])
 }
 
 class NewsModel {
-    var delegate: NewsModelProtocol?
+    
+    weak var delegate: NewsModelProtocol?
     
     func fetchArticles() {
         
@@ -27,20 +28,23 @@ class NewsModel {
         let session = URLSession.shared
         let dataTask = session.dataTask(with: url) { (data, response, error) in
             
-            if error == nil && data != nil {
-                let decoder = JSONDecoder()
-                do {
-                    
-                    let articlesArray = try decoder.decode(NewsService.self, from: data!)
-                    let articles = articlesArray.articles
-                    
-                    DispatchQueue.main.async {
-                        self.delegate?.articlesFetched(articles)
-                    }
-                } catch {
-                    print("Error while decoding JSON with articles")
-                }
+            if error != nil {
+                print(error?.localizedDescription ?? "DataTask failed")
+                return
             }
+            guard let dataFetched = data else { return }
+            
+            let decoder = JSONDecoder()
+            do {
+                
+                let articlesArray = try decoder.decode(NewsBundle.self, from: dataFetched)
+                let articles = articlesArray.articles
+                self.delegate?.articlesFetched(articles)
+                
+            } catch {
+                print("Error while decoding JSON with articles")
+            }
+            
         }
         dataTask.resume()
     }

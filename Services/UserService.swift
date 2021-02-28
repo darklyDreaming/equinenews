@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseFirestore
 
-class UserService {
+final class UserService {
     
     static func createProfile(userId: String, username: String, topicToRead: String, completion: @escaping (EquineNewsUser?) -> Void) {
         let profileData = ["username" : username, "topicToRead" : topicToRead ]
@@ -17,7 +17,6 @@ class UserService {
         db.collection("users").document(userId).setData(profileData) { (error) in
             if error == nil {
                 let newUser = EquineNewsUser(userId: username, username: username, topicToRead: topicToRead)
-                // Create user profile
                 completion(newUser)
             } else {
                 completion(nil)

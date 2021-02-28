@@ -17,19 +17,18 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         webView.navigationDelegate = self
-        webView.configuration.mediaTypesRequiringUserActionForPlayback = .all
-        webView.configuration.allowsInlineMediaPlayback = false
     }
     
     override func viewWillAppear(_ animated: Bool) {
         
-        if articleUrl != nil {
-            let url = URL(string: articleUrl!)
-            guard url != nil else {
-                print("Failed to create URL object")
+        if let articleUrl = articleUrl {
+            let url = URL(string: articleUrl)
+            guard let validUrl = url else {
+                print("WebView: Failed to create URL object")
                 return
             }
-            let request = URLRequest(url: url!)
+            
+            let request = URLRequest(url: validUrl)
             spinner.alpha = 1
             spinner.startAnimating()
 

@@ -8,11 +8,10 @@
 import Foundation
 import UIKit
 
-class Styles {
+final class Styles {
     
     static func styleButton(button: UIButton) -> UIButton {
         let button = button
-        let font = UIFont.systemFont(ofSize: 15, weight: .regular)
         button.backgroundColor = .black
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 10

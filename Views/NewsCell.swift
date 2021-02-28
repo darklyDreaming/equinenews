@@ -16,13 +16,11 @@ class NewsCell: UITableViewCell {
     
     func displayArticle(_ article: Article) {
         
-        
         articleImageView.image = nil
         articleImageView.alpha = 0
         headlineLabel.text = ""
         headlineLabel.alpha = 0
         
-        // Keep a reference to the article
         articleToDisplay = article
         
         headlineLabel.text = articleToDisplay?.title
@@ -31,10 +29,7 @@ class NewsCell: UITableViewCell {
             self.headlineLabel.alpha = 1
         }, completion: nil)
         
-        guard let urlString = articleToDisplay?.urlToImage else {
-            print("Error fetching image")
-            return
-        }
+        guard let urlString = articleToDisplay?.urlToImage else { return }
         
         if let imageData = CacheService.retrieveData(url: urlString) {
             
@@ -79,4 +74,5 @@ class NewsCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
+    
 }

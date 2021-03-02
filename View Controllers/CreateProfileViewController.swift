@@ -31,6 +31,13 @@ class CreateProfileViewController: UIViewController {
         
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        self.view.endEditing(true)
+        super.touchesBegan(touches, with: event)
+        
+    }
+    
     @IBAction func createProfileTapped(_ sender: Any) {
         
         if let currentUser = Auth.auth().currentUser {

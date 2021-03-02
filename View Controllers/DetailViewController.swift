@@ -35,6 +35,13 @@ class DetailViewController: UIViewController {
             webView.load(request)
         }
     }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        
+        webView.navigationDelegate = nil
+        
+        
+    }
 }
 
 extension DetailViewController: WKNavigationDelegate {
